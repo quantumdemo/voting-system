@@ -202,59 +202,144 @@
 
   <!-- Scripts -->
   <script>
-    function sha256(str) {
-      return CryptoJS.SHA256(str).toString();
-    }
-
-    function simulateVote() {
+    async function simulateVote() {
       const vin = document.getElementById('vin').value;
       const otp = document.getElementById('otp').value;
       const candidate = document.getElementById('candidate').value;
       const spinner = document.getElementById("vote-spinner");
-      const status = document.getElementById("vote-status");
+      const statusDiv = document.getElementById("vote-status");
 
-      if (!vin || !otp || !candidate) {
-        status.innerHTML = '<span class="text-danger">Please fill in all fields.</span>';
+      if (!vin || !otp || candidate === "Select a candidate") {
+        statusDiv.innerHTML = '<span class="text-danger">Please fill in all fields and select a candidate.</span>';
         return;
       }
 
       spinner.classList.remove("d-none");
-      status.innerText = "Encrypting and submitting your vote...";
+      statusDiv.innerHTML = "Submitting your vote...";
 
-      setTimeout(() => {
-        const hash = sha256(candidate + new Date().toISOString());
-        localStorage.setItem("voteHash", hash);
+      try {
+        const response = await fetch('/submit_vote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vin, otp, candidate })
+        });
+        const result = await response.json();
+
+        if (response.ok && result.status === "success") {
+          statusDiv.innerHTML = `<span class="text-success">${result.message}</span>`;
+          // We will call fetchResults and updateChart in the next step
+        } else {
+          statusDiv.innerHTML = `<span class="text-danger">${result.message || 'Error submitting vote.'}</span>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = `<span class="text-danger">Network error or server unavailable.</span>`;
+        console.error("Error submitting vote:", error);
+      } finally {
         spinner.classList.add("d-none");
-        status.innerHTML = `<span class="text-success">Vote submitted securely ✅<br>Hash: <code>${hash.slice(0, 12)}...</code></span>`;
-        updateChart(candidate);
-      }, 2000);
+      }
     }
 
-    let voteCounts = {
-      'Candidate A': 0,
-      'Candidate B': 0,
-      'Candidate C': 0
-    };
+    let resultsChart; // Declare chart variable in a broader scope
 
-    function updateChart(candidate) {
-      voteCounts[candidate]++;
-      resultsChart.data.datasets[0].data = Object.values(voteCounts);
+    async function fetchResults() {
+      try {
+        const response = await fetch('/get_results');
+        if (!response.ok) {
+          console.error("Failed to fetch results:", response.status);
+          return null;
+        }
+        const results = await response.json();
+        return results;
+      } catch (error) {
+        console.error("Error fetching results:", error);
+        return null;
+      }
+    }
+
+    function updateChart(newResults) {
+      if (!resultsChart || !newResults) return;
+
+      const candidateNames = Object.keys(newResults);
+      const voteCounts = Object.values(newResults);
+
+      // Ensure all candidates are present in labels, even if count is 0 for some initially
+      const allCandidates = ['Candidate A', 'Candidate B', 'Candidate C'];
+      const currentLabels = resultsChart.data.labels;
+      allCandidates.forEach(c => {
+          if(!currentLabels.includes(c)) currentLabels.push(c);
+      });
+
+      const dataForChart = currentLabels.map(label => newResults[label] || 0);
+
+      resultsChart.data.labels = currentLabels;
+      resultsChart.data.datasets[0].data = dataForChart;
       resultsChart.update();
     }
 
-    const resultsChart = new Chart(document.getElementById('resultsChart'), {
-      type: 'pie',
-      data: {
-        labels: Object.keys(voteCounts),
-        datasets: [{
-          label: 'Votes',
-          data: Object.values(voteCounts),
-          backgroundColor: ['#007bff', '#28a745', '#ffc107']
-        }]
-      },
-      options: {
-        responsive: true
+    async function initializeChart() {
+      const initialResults = await fetchResults() || { 'Candidate A': 0, 'Candidate B': 0, 'Candidate C': 0 };
+      const candidateLabels = ['Candidate A', 'Candidate B', 'Candidate C']; // Default labels
+      const initialData = candidateLabels.map(label => initialResults[label] || 0);
+
+      resultsChart = new Chart(document.getElementById('resultsChart'), {
+        type: 'pie',
+        data: {
+          labels: candidateLabels,
+          datasets: [{
+            label: 'Votes',
+            data: initialData,
+            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6c757d'] // Added more colors if needed
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+      updateChart(initialResults); // Ensure chart reflects fetched or default data
+    }
+
+    // Modify simulateVote to call fetchResults and updateChart
+    async function simulateVote() {
+      const vin = document.getElementById('vin').value;
+      const otp = document.getElementById('otp').value;
+      const candidate = document.getElementById('candidate').value;
+      const spinner = document.getElementById("vote-spinner");
+      const statusDiv = document.getElementById("vote-status");
+
+      if (!vin || !otp || candidate === "Select a candidate") {
+        statusDiv.innerHTML = '<span class="text-danger">Please fill in all fields and select a candidate.</span>';
+        return;
       }
+
+      spinner.classList.remove("d-none");
+      statusDiv.innerHTML = "Submitting your vote...";
+
+      try {
+        const response = await fetch('/submit_vote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vin, otp, candidate })
+        });
+        const result = await response.json();
+
+        if (response.ok && result.status === "success") {
+          statusDiv.innerHTML = `<span class="text-success">${result.message}</span>`;
+          const latestResults = await fetchResults(); // Fetch results after successful vote
+          if (latestResults) updateChart(latestResults);
+        } else {
+          statusDiv.innerHTML = `<span class="text-danger">${result.message || 'Error submitting vote.'}</span>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = `<span class="text-danger">Network error or server unavailable.</span>`;
+        console.error("Error submitting vote:", error);
+      } finally {
+        spinner.classList.add("d-none");
+      }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeChart();
     });
 
     document.getElementById('contactForm').addEventListener('submit', async function (e) {
