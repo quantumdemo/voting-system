@@ -1,0 +1,277 @@
+<!-- Digital Voting Landing Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nigeria Digital Voting Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    .hero {
+      background: linear-gradient(to right, #002f6c, #007bff);
+      height: 100vh;
+      color: white;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      background: url('nigerian-flag.svg') no-repeat center center/cover;
+      opacity: 0.08;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: 0;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+    .step-icon { font-size: 2rem; color: #007bff; }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero d-flex align-items-center justify-content-center text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Revolutionizing Nigeria’s Elections with Secure Digital Voting</h1>
+      <p class="lead">Transparent, Tamper-Proof, and Accessible Voting for All Nigerians</p>
+      <div class="mt-4">
+        <a href="#about" class="btn btn-primary btn-lg me-2">Learn More</a>
+        <a href="#voteDemo" class="btn btn-outline-light btn-lg">Simulate a Demo Vote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">About Digital Voting in Nigeria</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>The Problem</h5>
+          <p>Traditional voting methods in Nigeria face serious challenges such as electoral fraud, accessibility issues, delays in result collation, and lack of transparency.</p>
+        </div>
+        <div class="col-md-6">
+          <h5>Our Solution</h5>
+          <p>Digital voting offers encrypted, real-time, and tamper-proof elections that ensure inclusivity and speed. Every vote counts and is recorded transparently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">How It Works</h2>
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <div class="card p-4">
+            <div class="step-icon mb-3">🔍</div>
+            <h5>Voter Authentication</h5>
+            <p>Users authenticate using biometric data or one-time passwords (OTP) sent to registered devices.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card p-4">
+            <div class="step-icon mb-3">🗳️</div>
+            <h5>Secure Ballot Casting</h5>
+            <p>Votes are cast via encrypted forms ensuring that no data tampering is possible during transmission.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card p-4">
+            <div class="step-icon mb-3">📊</div>
+            <h5>Real-Time Results</h5>
+            <p>Votes are instantly reflected on a live dashboard with a blockchain-style audit trail for public view.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Voting Simulation -->
+  <section id="voteDemo" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Simulate a Demo Vote</h2>
+      <div class="mb-3">
+        <input type="text" id="vin" class="form-control" placeholder="Enter Mock Voter ID (VIN)">
+      </div>
+      <div class="mb-3">
+        <input type="text" id="otp" class="form-control" placeholder="Enter OTP">
+      </div>
+      <div class="mb-3">
+        <select id="candidate" class="form-select">
+          <option selected disabled>Select a candidate</option>
+          <option value="Candidate A">Candidate A</option>
+          <option value="Candidate B">Candidate B</option>
+          <option value="Candidate C">Candidate C</option>
+        </select>
+      </div>
+      <button onclick="simulateVote()" class="btn btn-success">Cast Vote</button>
+      <div id="vote-spinner" class="spinner-border text-primary d-none mt-3" role="status"></div>
+      <div id="vote-status" class="mt-3"></div>
+    </div>
+  </section>
+
+  <!-- Live Results Dashboard -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Live Results</h2>
+      <canvas id="resultsChart" width="400" height="200"></canvas>
+    </div>
+  </section>
+
+  <!-- Security Features -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Security Features</h2>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="mb-3">🔐</div>
+          <h5>End-to-End Encryption</h5>
+          <p>Votes are encrypted from the voter's device to the database using strong algorithms.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">🧾</div>
+          <h5>Audit Trail</h5>
+          <p>All votes are logged with irreversible hashes and timestamp verification.</p>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">🛡️</div>
+          <h5>Anonymity</h5>
+          <p>Voter identity is decoupled from ballot data to ensure privacy and prevent coercion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ and Contact Form -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">FAQs & Contact</h2>
+      <div class="accordion mb-4" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+              Is digital voting safe?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes, our platform uses end-to-end encryption, audit trails, and decentralized validation.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+              Can results be tampered with?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">No. Votes are hashed and verified across multiple ledgers ensuring integrity.</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="contactForm">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" placeholder="Your Message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <div id="contactResponse" class="mt-3"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 bg-dark text-light">
+    <div class="container">
+      <p>&copy; 2025 Nigeria Digital Voting Demo. All rights reserved.</p>
+      <p><small>Demo project for educational purposes only.</small></p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function sha256(str) {
+      return CryptoJS.SHA256(str).toString();
+    }
+
+    function simulateVote() {
+      const vin = document.getElementById('vin').value;
+      const otp = document.getElementById('otp').value;
+      const candidate = document.getElementById('candidate').value;
+      const spinner = document.getElementById("vote-spinner");
+      const status = document.getElementById("vote-status");
+
+      if (!vin || !otp || !candidate) {
+        status.innerHTML = '<span class="text-danger">Please fill in all fields.</span>';
+        return;
+      }
+
+      spinner.classList.remove("d-none");
+      status.innerText = "Encrypting and submitting your vote...";
+
+      setTimeout(() => {
+        const hash = sha256(candidate + new Date().toISOString());
+        localStorage.setItem("voteHash", hash);
+        spinner.classList.add("d-none");
+        status.innerHTML = `<span class="text-success">Vote submitted securely ✅<br>Hash: <code>${hash.slice(0, 12)}...</code></span>`;
+        updateChart(candidate);
+      }, 2000);
+    }
+
+    let voteCounts = {
+      'Candidate A': 0,
+      'Candidate B': 0,
+      'Candidate C': 0
+    };
+
+    function updateChart(candidate) {
+      voteCounts[candidate]++;
+      resultsChart.data.datasets[0].data = Object.values(voteCounts);
+      resultsChart.update();
+    }
+
+    const resultsChart = new Chart(document.getElementById('resultsChart'), {
+      type: 'pie',
+      data: {
+        labels: Object.keys(voteCounts),
+        datasets: [{
+          label: 'Votes',
+          data: Object.values(voteCounts),
+          backgroundColor: ['#007bff', '#28a745', '#ffc107']
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      const response = await fetch('/submit_contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById('contactResponse').innerText = result.message;
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
