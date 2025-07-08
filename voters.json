@@ -1,0 +1,27 @@
+[
+  {
+    "vin": "VIN001",
+    "phone": "+2348000000001",
+    "name": "Adewale Adebayo"
+  },
+  {
+    "vin": "VIN002",
+    "phone": "+2348000000002",
+    "name": "Aisha Ibrahim"
+  },
+  {
+    "vin": "VIN003",
+    "phone": "+2348000000003",
+    "name": "Chinedu Okoro"
+  },
+  {
+    "vin": "VIN004",
+    "phone": "+2348000000004",
+    "name": "Fatima Bello"
+  },
+  {
+    "vin": "VIN005",
+    "phone": "+2348000000005",
+    "name": "Emeka Nwosu"
+  }
+]

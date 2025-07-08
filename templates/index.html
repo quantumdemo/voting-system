@@ -97,21 +97,35 @@
   <section id="voteDemo" class="py-5">
     <div class="container">
       <h2 class="text-center mb-4">Simulate a Demo Vote</h2>
-      <div class="mb-3">
-        <input type="text" id="vin" class="form-control" placeholder="Enter Mock Voter ID (VIN)">
+
+      <!-- Stage 1: VIN and Phone Input -->
+      <div id="stage1VinPhoneInput">
+        <div class="mb-3">
+          <input type="text" id="vin" class="form-control" placeholder="Enter Mock Voter ID (VIN)" autocomplete="off">
+        </div>
+        <div class="mb-3">
+          <input type="text" id="phone" class="form-control" placeholder="Enter Registered Phone (Optional, for verification)" autocomplete="off">
+        </div>
+        <button onclick="requestOtp()" class="btn btn-primary">Request OTP</button>
       </div>
-      <div class="mb-3">
-        <input type="text" id="otp" class="form-control" placeholder="Enter OTP">
+
+      <!-- Stage 2: OTP Input and Voting -->
+      <div id="stage2OtpVote" class="d-none">
+        <p id="otpSentMessage" class="text-info"></p>
+        <div class="mb-3">
+          <input type="text" id="otp" class="form-control" placeholder="Enter OTP Received" autocomplete="off">
+        </div>
+        <div class="mb-3">
+          <select id="candidate" class="form-select">
+            <option selected disabled>Select a candidate</option>
+            <option value="Candidate A">Candidate A</option>
+            <option value="Candidate B">Candidate B</option>
+            <option value="Candidate C">Candidate C</option>
+          </select>
+        </div>
+        <button onclick="simulateVote()" class="btn btn-success">Cast Vote</button>
       </div>
-      <div class="mb-3">
-        <select id="candidate" class="form-select">
-          <option selected disabled>Select a candidate</option>
-          <option value="Candidate A">Candidate A</option>
-          <option value="Candidate B">Candidate B</option>
-          <option value="Candidate C">Candidate C</option>
-        </select>
-      </div>
-      <button onclick="simulateVote()" class="btn btn-success">Cast Vote</button>
+
       <div id="vote-spinner" class="spinner-border text-primary d-none mt-3" role="status"></div>
       <div id="vote-status" class="mt-3"></div>
     </div>
@@ -240,6 +254,7 @@
     }
 
     let resultsChart; // Declare chart variable in a broader scope
+    let currentVinForVoting = ""; // Store VIN after OTP request
 
     async function fetchResults() {
       try {
@@ -258,27 +273,17 @@
 
     function updateChart(newResults) {
       if (!resultsChart || !newResults) return;
-
-      const candidateNames = Object.keys(newResults);
-      const voteCounts = Object.values(newResults);
-
-      // Ensure all candidates are present in labels, even if count is 0 for some initially
       const allCandidates = ['Candidate A', 'Candidate B', 'Candidate C'];
-      const currentLabels = resultsChart.data.labels;
-      allCandidates.forEach(c => {
-          if(!currentLabels.includes(c)) currentLabels.push(c);
-      });
+      let labelsToUse = [...new Set([...allCandidates, ...Object.keys(newResults)])]; // Merge and unique
 
-      const dataForChart = currentLabels.map(label => newResults[label] || 0);
-
-      resultsChart.data.labels = currentLabels;
-      resultsChart.data.datasets[0].data = dataForChart;
+      resultsChart.data.labels = labelsToUse;
+      resultsChart.data.datasets[0].data = labelsToUse.map(label => newResults[label] || 0);
       resultsChart.update();
     }
 
     async function initializeChart() {
       const initialResults = await fetchResults() || { 'Candidate A': 0, 'Candidate B': 0, 'Candidate C': 0 };
-      const candidateLabels = ['Candidate A', 'Candidate B', 'Candidate C']; // Default labels
+      const candidateLabels = ['Candidate A', 'Candidate B', 'Candidate C'];
       const initialData = candidateLabels.map(label => initialResults[label] || 0);
 
       resultsChart = new Chart(document.getElementById('resultsChart'), {
@@ -288,26 +293,75 @@
           datasets: [{
             label: 'Votes',
             data: initialData,
-            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6c757d'] // Added more colors if needed
+            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6c757d']
           }]
         },
-        options: {
-          responsive: true
-        }
+        options: { responsive: true }
       });
-      updateChart(initialResults); // Ensure chart reflects fetched or default data
+      updateChart(initialResults);
     }
 
-    // Modify simulateVote to call fetchResults and updateChart
-    async function simulateVote() {
+    async function requestOtp() {
       const vin = document.getElementById('vin').value;
+      const phone = document.getElementById('phone').value; // Optional
+      const spinner = document.getElementById("vote-spinner");
+      const statusDiv = document.getElementById("vote-status");
+      const otpSentMessageDiv = document.getElementById("otpSentMessage");
+
+      if (!vin) {
+        statusDiv.innerHTML = '<span class="text-danger">Please enter your Voter ID (VIN).</span>';
+        return;
+      }
+
+      spinner.classList.remove("d-none");
+      statusDiv.innerHTML = "Requesting OTP...";
+      otpSentMessageDiv.innerHTML = "";
+
+
+      try {
+        const payload = { vin };
+        if (phone) { // Add phone to payload only if it's provided
+            payload.phone = phone;
+        }
+        const response = await fetch('/request_otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.status === "success") {
+          currentVinForVoting = vin; // Store VIN for the actual vote submission
+          document.getElementById('stage1VinPhoneInput').classList.add('d-none');
+          document.getElementById('stage2OtpVote').classList.remove('d-none');
+          otpSentMessageDiv.innerHTML = `OTP sent to registered phone ending in ...${result.phone_last4}. Please enter it below. (Test OTP: ${result.otp_for_testing})`; // Display for testing
+          statusDiv.innerHTML = ""; // Clear previous status
+          // Optionally disable VIN input here or clear it if needed
+          document.getElementById('vin').readOnly = true;
+          document.getElementById('phone').readOnly = true;
+        } else {
+          statusDiv.innerHTML = `<span class="text-danger">${result.message || 'Error requesting OTP.'}</span>`;
+        }
+      } catch (error) {
+        statusDiv.innerHTML = `<span class="text-danger">Network error or server unavailable while requesting OTP.</span>`;
+        console.error("Error requesting OTP:", error);
+      } finally {
+        spinner.classList.add("d-none");
+      }
+    }
+
+    async function simulateVote() {
       const otp = document.getElementById('otp').value;
       const candidate = document.getElementById('candidate').value;
       const spinner = document.getElementById("vote-spinner");
       const statusDiv = document.getElementById("vote-status");
 
-      if (!vin || !otp || candidate === "Select a candidate") {
-        statusDiv.innerHTML = '<span class="text-danger">Please fill in all fields and select a candidate.</span>';
+      if (!currentVinForVoting) { // Should not happen if UI flow is correct
+          statusDiv.innerHTML = '<span class="text-danger">Error: VIN not set. Please request OTP first.</span>';
+          return;
+      }
+      if (!otp || candidate === "Select a candidate") {
+        statusDiv.innerHTML = '<span class="text-danger">Please enter OTP and select a candidate.</span>';
         return;
       }
 
@@ -318,14 +372,27 @@
         const response = await fetch('/submit_vote', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ vin, otp, candidate })
+          body: JSON.stringify({ vin: currentVinForVoting, otp, candidate })
         });
         const result = await response.json();
 
         if (response.ok && result.status === "success") {
           statusDiv.innerHTML = `<span class="text-success">${result.message}</span>`;
-          const latestResults = await fetchResults(); // Fetch results after successful vote
+          const latestResults = await fetchResults();
           if (latestResults) updateChart(latestResults);
+          // Reset form for next vote simulation after a delay or on a button click
+          setTimeout(() => {
+            document.getElementById('stage2OtpVote').classList.add('d-none');
+            document.getElementById('stage1VinPhoneInput').classList.remove('d-none');
+            document.getElementById('otp').value = '';
+            document.getElementById('candidate').selectedIndex = 0;
+            document.getElementById('vin').readOnly = false;
+            document.getElementById('vin').value = '';
+            document.getElementById('phone').readOnly = false;
+            document.getElementById('phone').value = '';
+            statusDiv.innerHTML = "";
+            currentVinForVoting = "";
+          }, 3000); // Reset after 3 seconds
         } else {
           statusDiv.innerHTML = `<span class="text-danger">${result.message || 'Error submitting vote.'}</span>`;
         }
@@ -337,9 +404,11 @@
       }
     }
 
-
     document.addEventListener('DOMContentLoaded', () => {
       initializeChart();
+      // Ensure correct initial state
+      document.getElementById('stage1VinPhoneInput').classList.remove('d-none');
+      document.getElementById('stage2OtpVote').classList.add('d-none');
     });
 
     document.getElementById('contactForm').addEventListener('submit', async function (e) {
