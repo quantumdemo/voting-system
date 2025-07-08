@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Voting Nigeria</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS (will create this later) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar (Optional - can be added later if needed) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DigitalVoteNG</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demo">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#security">Security</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-section text-white text-center">
+        <div class="container">
+            <!-- Content will be added in the next step -->
+            <h1>Revolutionizing Nigeria’s Elections with Secure Digital Voting</h1>
+            <p class="lead">Transparent, Tamper-Proof, and Accessible Voting for All Nigerians</p>
+            <a href="#about" class="btn btn-primary btn-lg">Learn More</a>
+            <a href="#demo" class="btn btn-secondary btn-lg">Simulate a Demo Vote</a>
+            <div class="animated-imagery mt-4 d-flex justify-content-center">
+                <!-- Animated Nigerian Flag -->
+                <div class="nigerian-flag">
+                    <div class="flag-stripe flag-green"></div>
+                    <div class="flag-stripe flag-white"></div>
+                    <div class="flag-stripe flag-green"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Empowering Nigerian Voters Through Technology</h2>
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <p class="lead">Nigeria's electoral process has faced significant challenges, including logistical hurdles, voter disenfranchisement, delays in results, and concerns about electoral malpractice. These issues can undermine public trust and participation in democratic processes.</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h3>The Challenge</h3>
+                    <p>Traditional voting methods often involve manual processes that are prone to errors, susceptible to manipulation, and can be resource-intensive. Ensuring accessibility for all eligible voters, especially in remote areas or for those with disabilities, remains a critical concern. The collation and announcement of results can also be a lengthy process, creating periods of uncertainty.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Our Digital Solution</h3>
+                    <p>Digital voting offers a transformative approach to address these challenges. By leveraging secure technology, we aim to create an electoral system that is:</p>
+                    <ul>
+                        <li><strong>Transparent:</strong> Utilizes cryptographic techniques and distributed ledger concepts (like blockchain) to ensure that every vote is recorded accurately and cannot be tampered with. Real-time auditing becomes a possibility.</li>
+                        <li><strong>Secure:</strong> Employs multi-factor authentication (including biometrics and OTPs) to verify voter identity and end-to-end encryption to protect the secrecy and integrity of each ballot.</li>
+                        <li><strong>Accessible:</strong> Enables voters to cast their ballots from verified and secure remote locations or designated digital polling stations, reducing geographical barriers and improving convenience.</li>
+                        <li><strong>Efficient:</strong> Automates the vote counting process, leading to faster, more accurate results and reducing the human element prone to error or manipulation.</li>
+                    </ul>
+                    <p>Our platform demonstrates how these technologies can be applied to build a more resilient, trustworthy, and inclusive democratic future for Nigeria.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">The Digital Voting Process</h2>
+            <div class="row text-center">
+                <!-- Step 1: Voter Authentication -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <!-- Placeholder for an icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-check-fill text-primary" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">1. Voter Authentication</h5>
+                            <p class="card-text">Securely verify your identity using multi-factor authentication, such as Biometrics (NIN linkage) or a One-Time Password (OTP) sent to your registered phone number.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2: Secure Ballot Casting -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <!-- Placeholder for an icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-shield-lock-fill text-success" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 0c-.086 0-.166.002-.243.005l-.028.004C4.996.096 2.226.943.998 3.057a8.39 8.39 0 0 0-.972 1.437C-.07 5.334.004 6.165.206 7.215c.203 1.053.598 2.14.998 3.177C2.137 12.533 4.596 14.5 8 16s5.863-1.967 6.796-4.608c.399-1.036.795-2.124.998-3.176.202-1.05.276-1.881.14-2.722a8.39 8.39 0 0 0-.972-1.437C13.774.943 11.004.096 8.27.009L8.243.005A1.686 1.686 0 0 0 8 0zm0 5a.5.5 0 0 1 .5.5v1.5a.5.5 0 0 1-1 0V5.5A.5.5 0 0 1 8 5zm0 3.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">2. Secure Ballot Casting</h5>
+                            <p class="card-text">Cast your vote with confidence. Your choice is protected by end-to-end encryption, ensuring anonymity and preventing tampering from the moment you vote until it's counted.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3: Real-Time Results Dashboard -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <!-- Placeholder for an icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bar-chart-line-fill text-info" viewBox="0 0 16 16">
+                                    <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">3. Real-Time Results</h5>
+                            <p class="card-text">Witness transparent results as they are updated in real-time on a public dashboard. Votes are recorded on a tamper-proof, blockchain-style ledger (demo) for full auditability.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Voting Simulation Section -->
+    <section id="demo" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Demo Voting Simulation</h2>
+
+            <div id="demo-area">
+                <!-- Step 1: Registration -->
+                <div id="registration-step">
+                    <h4 class="text-center">Step 1: Register to Vote (Mock)</h4>
+                    <form id="registration-form" class="row g-3 justify-content-center">
+                        <div class="col-md-4">
+                            <label for="mock-vin" class="form-label">Mock Voter ID (VIN)</label>
+                            <input type="text" class="form-control" id="mock-vin" placeholder="Enter any 10 digits" required maxlength="10">
+                        </div>
+                        <div class="col-md-3 align-self-end">
+                            <button type="submit" class="btn btn-primary w-100">Request OTP</button>
+                        </div>
+                    </form>
+                    <div id="otp-section" class="mt-3 text-center" style="display: none;">
+                        <p>An OTP has been sent to your mock phone number (123456).</p>
+                        <form id="otp-form" class="row g-3 justify-content-center">
+                            <div class="col-md-3">
+                                <label for="mock-otp" class="form-label">Enter OTP</label>
+                                <input type="text" class="form-control" id="mock-otp" placeholder="Enter 123456" required>
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <button type="submit" class="btn btn-success w-100">Verify & Proceed</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="registration-message" class="mt-3 text-center"></div>
+                </div>
+
+                <!-- Step 2: Vote Casting -->
+                <div id="voting-step" style="display: none;">
+                    <h4 class="text-center mt-5">Step 2: Cast Your Vote</h4>
+                    <p class="text-center">Welcome, Voter <span id="voter-id-display"></span>! Please select a candidate.</p>
+                    <form id="vote-casting-form" class="text-center">
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="candidate" id="candidateA" value="Candidate A" required>
+                                <label class="form-check-label" for="candidateA">Candidate A (Party X)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="candidate" id="candidateB" value="Candidate B" required>
+                                <label class="form-check-label" for="candidateB">Candidate B (Party Y)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="candidate" id="candidateC" value="Candidate C" required>
+                                <label class="form-check-label" for="candidateC">Candidate C (Party Z)</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-success">
+                            <span id="vote-submit-text">Cast Secure Vote</span>
+                            <span id="vote-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
+                    </form>
+                    <div id="vote-casting-message" class="mt-3 text-center"></div>
+                    <div id="encryption-animation" class="mt-3 text-center" style="display: none;">
+                        <p class="text-info">Encrypting your vote... <span id="encryption-dots"></span></p>
+                        <div class="progress">
+                            <div id="encryption-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: View Results -->
+                <div id="results-step" style="display: none;">
+                    <h4 class="text-center mt-5">Step 3: Live Election Results (Demo)</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <canvas id="resultsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <p>Total Votes Cast: <span id="total-votes-cast">0</span></p>
+                        <button id="reset-demo-button" class="btn btn-warning">Reset Demo & Vote Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Features Section -->
+    <section id="security" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Commitment to Security</h2>
+            <p class="text-center lead mb-5">We prioritize the integrity and confidentiality of every vote. Our system (and this demo) incorporates multiple layers of security, inspired by best practices in digital security and election technology.</p>
+            <div class="row text-center">
+                <!-- Feature 1: End-to-End Encryption -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-lock-fill text-primary" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">End-to-End Encryption</h5>
+                            <p class="card-text">Each vote is encrypted from the point of casting to the final tally. This ensures that your vote remains private and cannot be read or altered by unauthorized parties.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 2: Voter Anonymity -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-eye-slash-fill text-success" viewBox="0 0 16 16">
+                                    <path d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.938 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6l-12-12 .708-.708 12 12-.708.708z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">Voter Anonymity</h5>
+                            <p class="card-text">While voter identity is verified during authentication, the vote itself is decoupled from the voter's personal information to ensure ballot secrecy. Your choice remains anonymous.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 3: Tamper-Proof Audit Trails -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-shield-check text-info" viewBox="0 0 16 16">
+                                    <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.06.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.953-.325-1.89-.722-2.837-.855A1.117 1.117 0 0 0 8.992.99 1.174 1.174 0 0 0 8 1c-.198 0-.387.03-.59.082a61.439 61.439 0 0 0-2.072.508zM6.5 5.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1z"/>
+                                    <path d="M10.854 9.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 11.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="card-title">Tamper-Proof Audit Trails</h5>
+                            <p class="card-text">All voting activities are logged in a secure, immutable manner (simulated via a blockchain-style ledger in this demo). This allows for transparent auditing and verification of the election process without compromising voter privacy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ & Contact Form Section -->
+    <section id="faq-contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="text-center mb-4">Frequently Asked Questions (FAQ)</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Is digital voting secure?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Our digital voting platform (and this demo) is designed with multiple layers of security, including end-to-end encryption, secure voter authentication, and (in a real system) tamper-proof audit trails based on technologies like blockchain. The goal is to make it significantly more secure than traditional paper-based systems against many forms of fraud.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How is my vote kept anonymous?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    While your identity is verified during the registration/authentication phase to ensure only eligible voters participate, the voting system is designed to decouple your personal identity from your actual vote. Your cast ballot is encrypted and processed anonymously.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Can digital voting prevent election rigging?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Digital voting aims to significantly reduce many common forms of election rigging, such as ballot box stuffing, vote alteration, and errors in manual counting. The transparency provided by features like real-time, auditable results (often using blockchain-inspired ledgers) makes manipulation much harder to conceal. However, no system is entirely immune to all potential threats, so continuous security audits and robust infrastructure are crucial.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    What about accessibility for people in rural areas or with low internet penetration?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    This is a critical consideration. A full-scale digital voting system in Nigeria would likely involve a hybrid approach. This could include secure, designated digital polling stations in accessible locations, potentially with offline capabilities that sync when connectivity is available. The goal is to enhance, not replace, accessibility for all voters. This demo focuses on the online aspect.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="text-center mb-4">Contact Us</h2>
+                    <form id="contact-form">
+                        <div class="mb-3">
+                            <label for="contact-name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="contact-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="contact-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="contact-subject">
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact-message" class="form-label">Message</label>
+                            <textarea class="form-control" id="contact-message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        <div id="contact-form-message" class="mt-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="mb-3">
+                <!-- Social Media Icons -->
+                <a href="#" class="text-white me-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+                  </svg></a>
+                <a href="#" class="text-white me-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0 0 3.596 0 8.049c0 4.144 3.055 7.6 6.998 8.006V11.37H4.943V8.05h2.055V6.006c0-2.043 1.207-3.158 3.02-3.158.866 0 1.79.153 1.79.153v2.504H10.84c-1.01 0-1.34.615-1.34 1.282v1.51h2.77l-.443 3.319H9.5V16.055A8.002 8.002 0 0 0 16 8.049z"/>
+                  </svg></a>
+                <a href="#" class="text-white me-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.708-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                  </svg></a>
+                <a href="#" class="text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.231.047s-2.389-.009-3.232-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.231s.008-2.389.046-3.232c.036-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                  </svg></a>
+            </div>
+            <p class="mb-2">&copy; 2024 DigitalVoteNG. All Rights Reserved.</p>
+            <p class="small text-muted">Disclaimer: This website is for demonstration and educational purposes only. It does not represent a real, live voting system for official Nigerian elections. The vote simulation is illustrative and does not have legal standing.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js (for demo results) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS (will create this later) -->
+    <script src="script.js"></script>
+</body>
+</html>
